@@ -1,6 +1,6 @@
 {
-  "name": "react-custom-scrollbars",
-  "version": "4.0.2",
+  "name": "react-custom-scrollbars-touch",
+  "version": "0.1.0",
   "description": "React scrollbars component",
   "main": "lib/index.js",
   "typings": "index.d.ts",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/malte-wessel/react-custom-scrollbars.git"
+    "url": "https://github.com/102/react-custom-scrollbars.git"
   },
   "keywords": [
     "scroll",
@@ -30,9 +30,9 @@
   "author": "Malte Wessel",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/malte-wessel/react-custom-scrollbars/issues"
+    "url": "https://github.com/102/react-custom-scrollbars/issues"
   },
-  "homepage": "https://github.com/malte-wessel/react-custom-scrollbars",
+  "homepage": "https://github.com/102/react-custom-scrollbars",
   "devDependencies": {
     "babel-cli": "^6.2.0",
     "babel-core": "^6.2.1",
@@ -75,6 +75,7 @@
   },
   "dependencies": {
     "dom-css": "^2.0.0",
+    "lodash.get": "^4.4.2",
     "raf": "^3.1.0"
   }
 }

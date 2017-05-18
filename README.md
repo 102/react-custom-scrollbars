@@ -1,5 +1,7 @@
-react-custom-scrollbars
+react-custom-scrollbars-touch
 =========================
+
+# This is a experemental fork providing a touch events support. Use at your own risk!
 
 [![npm](https://img.shields.io/badge/npm-react--custom--scrollbars-brightgreen.svg?style=flat-square)]()
 [![npm version](https://img.shields.io/npm/v/react-custom-scrollbars.svg?style=flat-square)](https://www.npmjs.com/package/react-custom-scrollbars)
