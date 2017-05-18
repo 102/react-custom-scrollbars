@@ -1,5 +1,6 @@
 import raf, { cancel as caf } from 'raf';
 import css from 'dom-css';
+import get from 'lodash.get';
 import { createClass, createElement, PropTypes, cloneElement } from 'react';
 import isString from '../utils/isString';
 import getScrollbarWidth from '../utils/getScrollbarWidth';
@@ -244,11 +245,15 @@ export default createClass({
         trackHorizontal.addEventListener('mouseenter', this.handleTrackMouseEnter);
         trackHorizontal.addEventListener('mouseleave', this.handleTrackMouseLeave);
         trackHorizontal.addEventListener('mousedown', this.handleHorizontalTrackMouseDown);
+        trackHorizontal.addEventListener('touchstart', this.handleHorizontalTrackMouseDown);
         trackVertical.addEventListener('mouseenter', this.handleTrackMouseEnter);
         trackVertical.addEventListener('mouseleave', this.handleTrackMouseLeave);
         trackVertical.addEventListener('mousedown', this.handleVerticalTrackMouseDown);
+        trackVertical.addEventListener('touchstart', this.handleVerticalTrackMouseDown);
         thumbHorizontal.addEventListener('mousedown', this.handleHorizontalThumbMouseDown);
+        thumbHorizontal.addEventListener('touchstart', this.handleHorizontalThumbMouseDown);
         thumbVertical.addEventListener('mousedown', this.handleVerticalThumbMouseDown);
+        thumbVertical.addEventListener('touchstart', this.handleVerticalThumbMouseDown);
         window.addEventListener('resize', this.handleWindowResize);
     },
 
@@ -261,11 +266,15 @@ export default createClass({
         trackHorizontal.removeEventListener('mouseenter', this.handleTrackMouseEnter);
         trackHorizontal.removeEventListener('mouseleave', this.handleTrackMouseLeave);
         trackHorizontal.removeEventListener('mousedown', this.handleHorizontalTrackMouseDown);
+        trackHorizontal.removeEventListener('touchstart', this.handleHorizontalTrackMouseDown);
         trackVertical.removeEventListener('mouseenter', this.handleTrackMouseEnter);
         trackVertical.removeEventListener('mouseleave', this.handleTrackMouseLeave);
         trackVertical.removeEventListener('mousedown', this.handleVerticalTrackMouseDown);
+        trackVertical.removeEventListener('touchstart', this.handleVerticalTrackMouseDown);
         thumbHorizontal.removeEventListener('mousedown', this.handleHorizontalThumbMouseDown);
+        thumbHorizontal.removeEventListener('touchstart', this.handleHorizontalThumbMouseDown);
         thumbVertical.removeEventListener('mousedown', this.handleVerticalThumbMouseDown);
+        thumbVertical.removeEventListener('touchstart', this.handleVerticalThumbMouseDown);
         window.removeEventListener('resize', this.handleWindowResize);
         // Possibly setup by `handleDragStart`
         this.teardownDragging();
@@ -314,7 +323,8 @@ export default createClass({
     handleHorizontalTrackMouseDown(event) {
         event.preventDefault();
         const { view } = this.refs;
-        const { target, clientX } = event;
+        const { target } = event;
+        const clientX = get(event, 'touches[0].clientX', event.clientX);
         const { left: targetLeft } = target.getBoundingClientRect();
         const thumbWidth = this.getThumbHorizontalWidth();
         const offset = Math.abs(targetLeft - clientX) - thumbWidth / 2;
@@ -324,7 +334,8 @@ export default createClass({
     handleVerticalTrackMouseDown(event) {
         event.preventDefault();
         const { view } = this.refs;
-        const { target, clientY } = event;
+        const { target } = event;
+        const clientY = get(event, 'touches[0].clientY', event.clientY);
         const { top: targetTop } = target.getBoundingClientRect();
         const thumbHeight = this.getThumbVerticalHeight();
         const offset = Math.abs(targetTop - clientY) - thumbHeight / 2;
@@ -334,7 +345,8 @@ export default createClass({
     handleHorizontalThumbMouseDown(event) {
         event.preventDefault();
         this.handleDragStart(event);
-        const { target, clientX } = event;
+        const { target } = event;
+        const clientX = get(event, 'touches[0].clientX', event.clientX);
         const { offsetWidth } = target;
         const { left } = target.getBoundingClientRect();
         this.prevPageX = offsetWidth - (clientX - left);
@@ -343,7 +355,8 @@ export default createClass({
     handleVerticalThumbMouseDown(event) {
         event.preventDefault();
         this.handleDragStart(event);
-        const { target, clientY } = event;
+        const { target } = event;
+        const clientY = get(event, 'touches[0].clientY', event.clientY);
         const { offsetHeight } = target;
         const { top } = target.getBoundingClientRect();
         this.prevPageY = offsetHeight - (clientY - top);
@@ -352,14 +365,18 @@ export default createClass({
     setupDragging() {
         css(document.body, disableSelectStyle);
         document.addEventListener('mousemove', this.handleDrag);
+        document.addEventListener('touchmove', this.handleDrag);
         document.addEventListener('mouseup', this.handleDragEnd);
+        document.addEventListener('touchend', this.handleDragEnd);
         document.onselectstart = returnFalse;
     },
 
     teardownDragging() {
         css(document.body, disableSelectStyleReset);
         document.removeEventListener('mousemove', this.handleDrag);
+        document.removeEventListener('touchmove', this.handleDrag);
         document.removeEventListener('mouseup', this.handleDragEnd);
+        document.removeEventListener('touchend', this.handleDragEnd);
         document.onselectstart = undefined;
     },
 
@@ -371,7 +388,7 @@ export default createClass({
 
     handleDrag(event) {
         if (this.prevPageX) {
-            const { clientX } = event;
+            const clientX = get(event, 'touches[0].clientX', event.clientX);
             const { view, trackHorizontal } = this.refs;
             const { left: trackLeft } = trackHorizontal.getBoundingClientRect();
             const thumbWidth = this.getThumbHorizontalWidth();
@@ -380,7 +397,7 @@ export default createClass({
             view.scrollLeft = this.getScrollLeftForOffset(offset);
         }
         if (this.prevPageY) {
-            const { clientY } = event;
+            const clientY = get(event, 'touches[0].clientY', event.clientY);
             const { view, trackVertical } = this.refs;
             const { top: trackTop } = trackVertical.getBoundingClientRect();
             const thumbHeight = this.getThumbVerticalHeight();
