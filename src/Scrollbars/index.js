@@ -218,11 +218,15 @@ export default class Scrollbars extends Component {
         trackHorizontal.addEventListener('mouseenter', this.handleTrackMouseEnter);
         trackHorizontal.addEventListener('mouseleave', this.handleTrackMouseLeave);
         trackHorizontal.addEventListener('mousedown', this.handleHorizontalTrackMouseDown);
+        trackHorizontal.addEventListener('touchstart', this.handleHorizontalTrackMouseDown);
         trackVertical.addEventListener('mouseenter', this.handleTrackMouseEnter);
         trackVertical.addEventListener('mouseleave', this.handleTrackMouseLeave);
         trackVertical.addEventListener('mousedown', this.handleVerticalTrackMouseDown);
+        trackVertical.addEventListener('touchstart', this.handleVerticalTrackMouseDown);
         thumbHorizontal.addEventListener('mousedown', this.handleHorizontalThumbMouseDown);
+        thumbHorizontal.addEventListener('touchstart', this.handleHorizontalThumbMouseDown);
         thumbVertical.addEventListener('mousedown', this.handleVerticalThumbMouseDown);
+        thumbVertical.addEventListener('touchstart', this.handleVerticalThumbMouseDown);
         window.addEventListener('resize', this.handleWindowResize);
     }
 
@@ -235,11 +239,15 @@ export default class Scrollbars extends Component {
         trackHorizontal.removeEventListener('mouseenter', this.handleTrackMouseEnter);
         trackHorizontal.removeEventListener('mouseleave', this.handleTrackMouseLeave);
         trackHorizontal.removeEventListener('mousedown', this.handleHorizontalTrackMouseDown);
+        trackHorizontal.removeEventListener('touchstart', this.handleHorizontalTrackMouseDown);
         trackVertical.removeEventListener('mouseenter', this.handleTrackMouseEnter);
         trackVertical.removeEventListener('mouseleave', this.handleTrackMouseLeave);
         trackVertical.removeEventListener('mousedown', this.handleVerticalTrackMouseDown);
+        trackVertical.removeEventListener('touchstart', this.handleVerticalTrackMouseDown);
         thumbHorizontal.removeEventListener('mousedown', this.handleHorizontalThumbMouseDown);
+        thumbHorizontal.removeEventListener('touchstart', this.handleHorizontalThumbMouseDown);
         thumbVertical.removeEventListener('mousedown', this.handleVerticalThumbMouseDown);
+        thumbVertical.removeEventListener('touchstart', this.handleVerticalThumbMouseDown);
         window.removeEventListener('resize', this.handleWindowResize);
         // Possibly setup by `handleDragStart`
         this.teardownDragging();
