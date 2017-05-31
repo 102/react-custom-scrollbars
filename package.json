@@ -1,6 +1,6 @@
 {
   "name": "react-custom-scrollbars-touch",
-  "version": "6.0.0-rc.4",
+  "version": "6.0.0-rc.5",
   "description": "React scrollbars component",
   "main": "lib/index.js",
   "scripts": {
