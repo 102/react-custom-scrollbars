@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React, { createClass } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 
-export default class App extends Component {
+export default createClass({
+
+    displayName: 'App',
+
     render() {
         return (
             <Scrollbars
@@ -21,4 +24,4 @@ export default class App extends Component {
             </Scrollbars>
         );
     }
-}
+});

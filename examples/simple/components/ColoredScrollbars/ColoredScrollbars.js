@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React, { createClass } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 
-export default class ColoredScrollbars extends Component {
+export default createClass({
 
-    constructor(props, ...rest) {
-        super(props, ...rest);
-        this.state = { top: 0 };
-        this.handleUpdate = this.handleUpdate.bind(this);
-        this.renderView = this.renderView.bind(this);
-        this.renderThumb = this.renderThumb.bind(this);
-    }
+    displayName: 'ColoredScrollbars',
+
+    getInitialState() {
+        return {
+            top: 0
+        };
+    },
 
     handleUpdate(values) {
         const { top } = values;
         this.setState({ top });
-    }
+    },
 
     renderView({ style, ...props }) {
         const { top } = this.state;
@@ -29,7 +29,7 @@ export default class ColoredScrollbars extends Component {
                 style={{ ...style, ...viewStyle }}
                 {...props}/>
         );
-    }
+    },
 
     renderThumb({ style, ...props }) {
         const { top } = this.state;
@@ -41,7 +41,7 @@ export default class ColoredScrollbars extends Component {
                 style={{ ...style, ...thumbStyle }}
                 {...props}/>
         );
-    }
+    },
 
     render() {
         return (
@@ -53,4 +53,4 @@ export default class ColoredScrollbars extends Component {
                 {...this.props}/>
         );
     }
-}
+});

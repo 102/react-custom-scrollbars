@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React, { createClass } from 'react';
 import ShadowScrollbars from './ShadowScrollbars';
 
-export default class App extends Component {
+export default createClass({
+
+    displayName: 'App',
+
     render() {
         return (
             <ShadowScrollbars
@@ -21,4 +24,4 @@ export default class App extends Component {
             </ShadowScrollbars>
         );
     }
-}
+});

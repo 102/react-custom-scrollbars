@@ -1,19 +1,22 @@
 import css from 'dom-css';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { createClass, PropTypes } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 
-class ShadowScrollbars extends Component {
+export default createClass({
 
-    constructor(props, ...rest) {
-        super(props, ...rest);
-        this.state = {
+    displayName: 'ShadowScrollbars',
+
+    propTypes: {
+        style: PropTypes.object
+    },
+
+    getInitialState() {
+        return {
             scrollTop: 0,
             scrollHeight: 0,
             clientHeight: 0
         };
-        this.handleUpdate = this.handleUpdate.bind(this);
-    }
+    },
 
     handleUpdate(values) {
         const { shadowTop, shadowBottom } = this.refs;
@@ -23,7 +26,7 @@ class ShadowScrollbars extends Component {
         const shadowBottomOpacity = 1 / 20 * (bottomScrollTop - Math.max(scrollTop, bottomScrollTop - 20));
         css(shadowTop, { opacity: shadowTopOpacity });
         css(shadowBottom, { opacity: shadowBottomOpacity });
-    }
+    },
 
     render() {
         const { style, ...props } = this.props;
@@ -62,10 +65,4 @@ class ShadowScrollbars extends Component {
             </div>
         );
     }
-}
-
-ShadowScrollbars.propTypes = {
-    style: PropTypes.object
-};
-
-export default ShadowScrollbars;
+});
